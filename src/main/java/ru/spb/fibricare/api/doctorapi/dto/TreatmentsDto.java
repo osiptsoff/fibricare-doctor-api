@@ -3,24 +3,22 @@ package ru.spb.fibricare.api.doctorapi.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.spb.fibricare.api.doctorapi.model.measurement.BloodPressure;
 import ru.spb.fibricare.api.doctorapi.model.measurement.Feedback;
+import ru.spb.fibricare.api.doctorapi.model.measurement.Treatments;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class BloodPressureDto implements EntityDto<BloodPressure, Long> {
+public class TreatmentsDto implements EntityDto<Treatments, Long> {
     private FeedbackDto feedback;
-    private Integer systolic;
-    private Integer diastolic;
+    private String treatments;
 
     @Override
-    public BloodPressure from() {
+    public Treatments from() {
         Feedback fb = feedback.from();
-        BloodPressure obj = new BloodPressure();
+        Treatments obj = new Treatments();
 
-        obj.setDiastolic(diastolic);
-        obj.setSystolic(systolic);
+        obj.setTreatments(treatments);
         obj.setDate(fb.getDate());
         obj.setId(fb.getId());
         obj.setPatientId(fb.getPatientId());
@@ -40,13 +38,11 @@ public class BloodPressureDto implements EntityDto<BloodPressure, Long> {
     }
 
     @Override
-    public BloodPressureDto fill(BloodPressure obj) {
+    public TreatmentsDto fill(Treatments obj) {
         feedback = (new FeedbackDto()).fill(obj);
 
-        this.setDiastolic(obj.getDiastolic());
-        this.setSystolic(obj.getSystolic());
+        this.setTreatments(obj.getTreatments());
 
         return this;
     }
-    
 }
